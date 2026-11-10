@@ -1,0 +1,70 @@
+{
+  "name": "idbk-chat",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "engines": {
+    "node": ">=24 <25"
+  },
+  "scripts": {
+    "setup": "node scripts/setup.mjs",
+    "dev": "concurrently -k \"npm:dev:api\" \"npm:dev:web\"",
+    "dev:api": "tsx watch apps/api/src/server.ts",
+    "dev:web": "vite --config apps/web/vite.config.ts",
+    "build": "tsc -p apps/api/tsconfig.json && tsc -p apps/web/tsconfig.json && vite build --config apps/web/vite.config.ts",
+    "start": "node dist/apps/api/src/server.js",
+    "db:migrate": "node --import tsx scripts/migrate.ts",
+    "admin:create": "node --import tsx scripts/admin.ts",
+    "demo:seed": "node --import tsx scripts/seed.ts",
+    "test": "node --import tsx --test --test-concurrency=1 tests/*.test.ts",
+    "test:e2e": "playwright test",
+    "account:recovery": "node --import tsx scripts/recovery.ts",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
+  },
+  "dependencies": {
+    "@tailwindcss/vite": "4.3.3",
+    "@vitejs/plugin-react": "6.1.1",
+    "bcryptjs": "3.0.3",
+    "cookie": "2.0.1",
+    "cookie-parser": "1.4.7",
+    "dotenv": "18.0.5",
+    "express": "5.2.1",
+    "express-rate-limit": "8.7.0",
+    "file-type": "22.1.1",
+    "helmet": "8.3.0",
+    "knex": "3.3.0",
+    "lucide-react": "1.51.0",
+    "multer": "2.4.0",
+    "mysql2": "3.24.5",
+    "nodemailer": "10.0.13",
+    "react": "19.3.0",
+    "react-dom": "19.3.0",
+    "react-router-dom": "7.18.4",
+    "socket.io": "4.8.4",
+    "socket.io-client": "4.8.4",
+    "tailwindcss": "4.3.3",
+    "zod": "4.6.5"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.51.1",
+    "@types/cookie-parser": "1.4.10",
+    "@types/express": "5.0.6",
+    "@types/multer": "2.3.0",
+    "@types/node": "26.6.4",
+    "@types/nodemailer": "8.0.2",
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
+    "@types/supertest": "7.2.1",
+    "concurrently": "10.0.5",
+    "prettier": "3.9.9",
+    "supertest": "7.3.1",
+    "tsx": "4.23.15",
+    "typescript": "7.0.2",
+    "vite": "8.3.2"
+  }
+}
